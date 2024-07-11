@@ -1,17 +1,16 @@
 /* eslint-disable react/display-name */
 /* eslint-disable import/no-anonymous-default-export */
 "use client"
-import { PrismaClient } from "@prisma/client"
 import { useState } from "react"
-import user_signup from "../actions/user_signup"
 import res_signup from "../actions/res_signup"
+import { useNavigate } from "react-router-dom"
 export default function () {
     const [res_name,setRes_name] = useState("")
     const [password,setPassword] = useState("")
     const [email,setEmail] = useState("")
     const [pincode,setPincode] = useState("")
     const [cuisine,setCuisine] = useState("")
-    const prisma= new PrismaClient()
+    const navigate = useNavigate()
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -58,6 +57,7 @@ export default function () {
                     <div>
                         <button onClick={async ()=>{
                             await res_signup(res_name,pincode,cuisine,password,email)
+                            navigate("/")
                         }} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign Up</button>
                     </div>
                 </form>
