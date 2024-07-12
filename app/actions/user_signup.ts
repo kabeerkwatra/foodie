@@ -8,6 +8,7 @@ export default async function (username: string, password: string,pincode: strin
         password,
         email,
         pincode
-    }
-})
+        }
+    })
+    return true
 }
