@@ -7,13 +7,13 @@ export default function Home() {
   const router = useRouter()
   const session = useSession()
   if (session.status == "authenticated"){
-    if (session.data.user){
+    if ("user" in session.data){
       router.push("/user/dashboard")
     }
-    else if (session.data.restaurant){
+    else if ("restaurant" in session.data){
       router.push("/restaurant/dashboard")
     }
-    else if (session.data.rider){
+    else if ("rider" in session.data){
       router.push("/rider/dashboard")
     }
   }

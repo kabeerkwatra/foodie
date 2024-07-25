@@ -8,13 +8,13 @@ import { getServerSession } from "next-auth";
 export default async function (){
     const session = await getServerSession(NEXT_AUTH)
     if(session){
-        if (session.user){
+        if (session.user!=null){
             redirect("/user/dashboard")   
         }
-        else if (session.restaurant){
+        else if (session.restaurant != null){
             redirect("/restaurant/dashboard")
         }
-        else if (session.rider){
+        else if (session.rider != null){
             redirect("/rider/dashboard")
         }
     }
