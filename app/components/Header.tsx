@@ -1,10 +1,8 @@
 /* eslint-disable react/display-name */
 "use client"
-import Image from "next/image";
 import Link from "next/link";
 import Logo from "./Logo";
 import { signOut, useSession } from "next-auth/react";
-import { useRouteError } from "react-router-dom";
 import { useRouter } from "next/navigation";
 
 /* eslint-disable import/no-anonymous-default-export */
@@ -29,11 +27,9 @@ export default function(){
             
                 {(session.status=="authenticated")?(<div className="flex"><button onClick={async ()=>{
                     await signOut({callbackUrl:"/"})
-                    // router.push("/")
-                }} className="px-4 py-3 m-2 font-bold text-white text-lg bg-red-600 rounded-3xl hover:bg-red-700 hover:ring-red-700 hover:ring-2">
+                }} className="px-4 py-3 m-2 font-bold text-white text-sm lg:text-lg bg-red-600 rounded-3xl hover:bg-red-700 hover:ring-red-700 hover:ring-2">
                     Sign Out
                 </button></div>):null}
-            
         </div>
     </div>
     )

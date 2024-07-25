@@ -1,13 +1,27 @@
 /* eslint-disable react/display-name */
+
+import { NEXT_AUTH } from "@/app/lib/auth";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import RiderSignUp from "@/app/components/RiderSignUp";
 /* eslint-disable import/no-anonymous-default-export */
-" use client"
-
-import RiderSignUp from "@/app/components/RiderSignUp"
-
-export default function(){
-    return (
-        <div>
+export default async function (){
+    const session = await getServerSession(NEXT_AUTH)
+    if(session){
+        if (session.user){
+            redirect("/user/dashboard")   
+        }
+        else if (session.restaurant){
+            redirect("/restaurant/dashboard")
+        }
+        else if (session.rider){
+            redirect("/rider/dashboard")
+        }
+    }
+    else{
+        return (
             <RiderSignUp/>
-        </div>
-    )
+        )
+    }
+    
 }
