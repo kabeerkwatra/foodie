@@ -1,16 +1,11 @@
 /* eslint-disable react/display-name */
-"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "./Logo";
-import { signOut, useSession } from "next-auth/react";
-import { useRouteError } from "react-router-dom";
-import { useRouter } from "next/navigation";
 
 /* eslint-disable import/no-anonymous-default-export */
 export default function(){
-    const router = useRouter()
-    const session = useSession()
     return (
     <div className="flex border-b-2 items-center m-2">
         <div>
@@ -26,14 +21,11 @@ export default function(){
                     <li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/profile">Profile</Link></li>
                 </ul>
             </div>
-            
-                {(session.status=="authenticated")?(<div className="flex"><button onClick={async ()=>{
-                    await signOut({callbackUrl:"/"})
-                    // router.push("/")
-                }} className="px-4 py-3 m-2 font-bold text-white text-lg bg-red-600 rounded-3xl hover:bg-red-700 hover:ring-red-700 hover:ring-2">
-                    Sign Out
-                </button></div>):null}
-            
+            <div className="flex">
+                <button className="px-4 py-3 m-2 font-bold text-white text-lg bg-red-600 rounded-3xl hover:bg-red-700 hover:ring-red-700 hover:ring-2">
+                    
+                </button>
+            </div>
         </div>
     </div>
     )

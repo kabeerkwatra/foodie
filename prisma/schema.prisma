@@ -14,26 +14,36 @@ datasource db {
 }
 
 model user {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   username String @unique
-  email String @unique
+  email    String @unique
   password String
-  pincode String
+  pincode  String
 }
 
 model restaurant {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   res_name String @unique
-  pincode String
-  cuisine String
+  pincode  String
+  cuisine  String
   password String
-  email String
+  email    String
+  Menu     MenuItem[]
 }
 
 model rider {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   username String @unique
-  pincode String
+  pincode  String
   password String
-  email String
+  email    String
 }
+
+model MenuItem {
+  id         Int        @id @default(autoincrement())
+  restaurant restaurant @relation(fields: [res_name], references: [res_name])
+  res_name   String    
+  item_name String
+  price     Float
+}
+
