@@ -6,14 +6,15 @@ import { useRouter } from "next/navigation"
 export default function Home() {
   const router = useRouter()
   const session = useSession()
+  console.log(session)
   if (session.status == "authenticated"){
-    if ("user" in session.data){
+    if (session.data && session.data.user && "username" in session.data?.user){
       router.push("/user/dashboard")
     }
-    else if ("restaurant" in session.data){
+    else if (session.data && session.data.user && "res_name" in session.data?.user){
       router.push("/restaurant/dashboard")
     }
-    else if ("rider" in session.data){
+    else if (session.data && session.data.user && "rider_name" in session.data?.user){
       router.push("/rider/dashboard")
     }
   }
@@ -30,5 +31,5 @@ export default function Home() {
     </div>
   </div>
   )
-    
 }
+

@@ -4,7 +4,7 @@ import prisma from "../lib/db"
 export default async function(username: string,pincode: string,password: string,email: string){
     const restaurant = await prisma.rider.create({
         data:{
-            username,
+            rider_name:username,
             pincode,
             password,
             email

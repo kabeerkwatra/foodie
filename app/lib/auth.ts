@@ -67,7 +67,10 @@ export const NEXT_AUTH={
         if(user){
             return {
                 ...token,
-                pincode:user.pincode
+                pincode:user.pincode,
+                username:user.username,
+                res_name:user.res_name,
+                rider_name:user.rider_name
             }
         }
         return token
@@ -78,7 +81,10 @@ export const NEXT_AUTH={
             ...session,
             user:{
                 ...session.user,
-                pincode:token.pincode
+                pincode:token.pincode,
+                username:token.username,
+                res_name:token.res_name,
+                rider_name:token.rider_name
             }
         }
        }

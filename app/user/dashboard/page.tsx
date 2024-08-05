@@ -14,6 +14,12 @@ export default function () {
     if (clientSession.status == "loading") {
         return <Loader />
     }
+    // @ts-ignore
+    if(!clientSession.data?.user?.username){
+        router.push("/")
+        return <div>User not signed in. Redirecting to homepage...</div>
+    } 
+    // @ts-ignore
     else if (clientSession.status == "unauthenticated") {
         setTimeout(() => { router.push("/") }, 1000)
         return <div>User not signed in, redirecting to home page...</div>
@@ -25,7 +31,9 @@ export default function () {
                 return (
                     <Link className="text-3xl hover:text-red-700 hover:text-4xl my-2" href={{
                         pathname: "/user/dashboard/menu",
-                        query: { restaurant: r.res_name }
+                        query: { restaurant: r.res_name,
+                            pincode:r.pincode
+                         }
                     }} key={r.res_name}>{r.res_name}</Link>
                 )
             })}</ul>
