@@ -7,15 +7,15 @@ import { useRouter } from "next/navigation"
 import Loader from "./Loader"
 export default function Menu({restaurant,pincode,username}:any){
     const session = useSession()
+    const router = useRouter()
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     const {data:menu,isLoading} = useSWR(`/api/menu?restaurant=${restaurant}`,fetcher)
-    const router = useRouter()
-    // const menuItems:string[] = []
     const [orderItems,setOrderItems] = useState(Object.create({}))
     const [total,setTotal]=useState(0)
+    // if(isLoading) return <Loader/>
+    let menuItems = menu.menu.Menu
     let order={}
     let sum=0
-    let menuItems = menu.menu.Menu
     useEffect(()=>{
         menuItems.forEach((i:any)=>{
             Object.defineProperty(order,i.item_name,{
@@ -26,8 +26,7 @@ export default function Menu({restaurant,pincode,username}:any){
             })
         })
         setOrderItems(order)
-    }) 
-    // if(isLoading) return <Loader/>
+    },[]) 
     
     return (
         <div className="flex flex-col justify-center items-center">

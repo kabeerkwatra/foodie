@@ -14,10 +14,10 @@ export default function(){
         const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
         let {data:orders,isLoading,mutate} = useSWR(`/api/getAllOrders?restaurant=${restaurant}`,fetcher,{refreshInterval:15000})
         const Orders = orders?.orders
-
+        // console.log(Orders)
     if (Orders){
-    
         const unacceptedOrders=Orders.filter((order:any)=>order.accepted_by_restaurant==false)
+        console.log(unacceptedOrders)
         const acceptedOrders=Orders.filter((order:any)=>order.accepted_by_restaurant==true && order.cooked==false)
         const cookedOrders=Orders.filter((order:any)=>order.cooked==true)
         let noUnacceptedOrders = true

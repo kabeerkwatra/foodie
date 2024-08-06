@@ -1,7 +1,6 @@
 "use server"
 import { redirect } from "next/navigation";
 import prisma from "../lib/db";
-
 /* eslint-disable import/no-anonymous-default-export */
 export default async function(restaurant:string,username:string,pincode:string,order:string,total:number){
 
@@ -10,9 +9,7 @@ export default async function(restaurant:string,username:string,pincode:string,o
             pincode:pincode
         }
     })
-    console.log(riders)
     const randomNumber = Math.floor((riders.length-1)*Math.random())
-    console.log(randomNumber)
     const randomRider = riders[randomNumber]
     if(randomRider){
         const newOrder = await prisma.order.create({
@@ -37,10 +34,6 @@ export default async function(restaurant:string,username:string,pincode:string,o
 
             }
         })
-        if(newOrder){
-            redirect("/user/order?orderid="+String(newOrder.id))
-            return true
-        }
-        else return false
+        redirect("/user/order?orderid="+String(newOrder.id))
     }
 }

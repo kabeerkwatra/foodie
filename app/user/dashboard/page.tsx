@@ -19,7 +19,7 @@ export default function () {
         router.push("/")
         return <div>User not signed in. Redirecting to homepage...</div>
     } 
-    // @ts-ignore
+    // @ts-ignore 
     else if (clientSession.status == "unauthenticated") {
         setTimeout(() => { router.push("/") }, 1000)
         return <div>User not signed in, redirecting to home page...</div>

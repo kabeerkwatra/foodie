@@ -9,7 +9,6 @@ import Loader from "./Loader"
 export default function(){
     const session = useSession()
     if(session.data && session.data.user && "username" in session.data.user){
-
     const username = session.data?.user?.username
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     let {data:orders,isLoading,mutate} = useSWR(`/api/getUserOrders?user=${username}`,fetcher,{refreshInterval:15000})
@@ -24,15 +23,24 @@ export default function(){
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0){
                             return null
-                        } 
+                        }
+                        let status = ""
+                        if(o.accepted_by_restaurant) status = "Cooking"
+                        if(o.cooked) status = "Cooked"
+                        if(o.picked_up) status = "On the way"
+                        if(o.delivered) status = "Delivered"
+
                         return <div className=" flex flex-col items-center mb-5 border-b p-2" key={o.id}>
                             <Link className="hover:underline" href={`/user/order?orderid=${String(o.id)}`}>ORDER ID = {o.id}</Link>
                             <div className="flex flex-col items-center">{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
+                            <div>{`Status = ${status}`}</div> 
                             </div>
                     })}
                  </div>
                 </div>
     }
+    
 }
+if(session.status=="loading") return <Loader/>
 }
