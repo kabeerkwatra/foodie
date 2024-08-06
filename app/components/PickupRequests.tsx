@@ -33,7 +33,7 @@ export default function(){
                             return null
                         } 
                         noUnacceptedOrders=false
-                        return <div className="mb-5" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>  <button onClick={()=>{
@@ -55,7 +55,7 @@ export default function(){
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0) {return null}
                         noAcceptedOrders=false
-                        return <div className="mb-5" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>  <button onClick={()=>{
@@ -69,21 +69,7 @@ export default function(){
                     })}
                     {noAcceptedOrders?<div className="mb-5">(No orders)</div>:null}
                 </div>
-                <div id="deliveredOrders" className="text-5xl text-center mb-5 text-red-600">
-                    Delivered
-                </div>
-                <div className="flex flex-col justify-center items-center">
-                    {deliveredOrders.map((o:any)=>{
-                        const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
-                        if(actualOrder.length==0) return null
-                        noDeliveredOrders=false
-                        return <div className="mb-5" key={o.id}>
-                            <div>ORDER ID = {o.id}</div>
-                            <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
-                            </div>
-                    })}
-                    {noDeliveredOrders?<div className="mb-5">(No orders)</div>:null}
-                </div>
+                
             </div>
     }
     }

@@ -7,9 +7,7 @@ import { redirect } from "next/navigation";
 export default async function({params,searchParams}:any){
     if(params.path[0]){
         const userType = params.path[0]
-        console.log(userType)
         const session = await getServerSession(NEXT_AUTH)
-        console.log(session)
         if(session){
             if (session.user!= null){
                 redirect("/user/dashboard")   

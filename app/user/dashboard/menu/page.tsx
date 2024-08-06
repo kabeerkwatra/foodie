@@ -15,7 +15,6 @@ export default function(){
     const pincode = searchParams.get('pincode')
     // @ts-ignore
     const username = session.data?.user?.username
-    // console.log(username)
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     const {data:menu,isLoading} = useSWR(`/api/menu?restaurant=${restaurant}`,fetcher)
     if(isLoading){return <Loader/>}

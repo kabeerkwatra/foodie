@@ -19,9 +19,12 @@ export default function(){
         <div className="flex justify-between w-full">
             <div className="flex">
                 <ul className="flex">
-                    <li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/">Home</Link></li>
-                    {/* <li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/dashboard">Dashboard</Link></li>
-                    <li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/profile">Profile</Link></li> */}
+                    {(session.data && session.data.user && "username" in session.data?.user)?<li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/user/dashboard">Nearby</Link></li>:null}
+                    {(session.data && session.data.user && "username" in session.data?.user)?<li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/user/past-orders">My Orders</Link></li>:null}
+                    {(session.data && session.data.user && "res_name" in session.data?.user)?<li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/restaurant/dashboard">Pending Orders</Link></li>:null}
+                    {(session.data && session.data.user && "res_name" in session.data?.user)?<li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/restaurant/past-orders">Cooked Orders</Link></li>:null}
+                    {(session.data && session.data.user && "rider_name" in session.data?.user)?<li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/rider/dashboard">Current Pickups</Link></li>:null}
+                    {(session.data && session.data.user && "rider_name" in session.data?.user)?<li className="content-center p-2 m-2 text-xl rounded-3xl hover:ring-2 hover:ring-red-600 hover:text-white hover:bg-red-600"><Link href="/rider/past-orders">Already Delivered</Link></li>:null}
                 </ul>
             </div>
             

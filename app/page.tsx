@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 export default function Home() {
   const router = useRouter()
   const session = useSession()
-  console.log(session)
   if (session.status == "authenticated"){
     if (session.data && session.data.user && "username" in session.data?.user){
       router.push("/user/dashboard")

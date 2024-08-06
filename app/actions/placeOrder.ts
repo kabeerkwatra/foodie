@@ -10,7 +10,10 @@ export default async function(restaurant:string,username:string,pincode:string,o
             pincode:pincode
         }
     })
-    const randomRider = riders[Math.floor((riders.length-1)*Math.random())]
+    console.log(riders)
+    const randomNumber = Math.floor((riders.length-1)*Math.random())
+    console.log(randomNumber)
+    const randomRider = riders[randomNumber]
     if(randomRider){
         const newOrder = await prisma.order.create({
             data:{

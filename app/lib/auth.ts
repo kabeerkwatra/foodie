@@ -14,13 +14,8 @@ export const NEXT_AUTH={
             },
             // @ts-ignore
             async authorize(credentials:{email:string,password:string},req:any){
-                // console.log(req)
                 const obj=JSON.parse(Object.keys(req.query)[0])
                 const userType = Object.values(obj)[0]
-                // console.log(typeof(userType))
-                // console.log(userType)
-                // console.log(credentials.email)
-                // console.log(credentials.password)
                 if (userType == "user"){
                     const user = await prisma.user.findFirst({
                         where:{
@@ -76,7 +71,6 @@ export const NEXT_AUTH={
         return token
        },
        async session({session,token}:any){
-        // console.log("session callback",{session,token,user})
         return {
             ...session,
             user:{

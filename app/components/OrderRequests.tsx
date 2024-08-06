@@ -27,16 +27,17 @@ export default function(){
                 <div className="text-5xl text-center mb-5 text-red-600">
                     Order requests
                 </div>
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col items-center">
                     {unacceptedOrders.map((o:any)=>{
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0){
                             return null
                         } 
                         noUnacceptedOrders=false
-                        return <div className="mb-5" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
+                            <div>{`Total = ${o.amount}`}</div>
                             <div>  <button onClick={()=>{
                                 updateOrder(o.id,"accepted_by_restaurant")
                                 setTimeout(()=>{
@@ -56,9 +57,10 @@ export default function(){
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0) return null
                         noAcceptedOrders=false
-                        return <div className="mb-5" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
+                            <div>{`Total = ${o.amount}`}</div>
                             <div>  <button onClick={()=>{
                                 updateOrder(o.id,"cooked")
                                 setTimeout(()=>{
@@ -69,24 +71,6 @@ export default function(){
                             </div>
                     })}
                     {noAcceptedOrders?<div className="mb-5">(No orders)</div>:null}
-                </div>
-                <div id="cookedOrders" className="text-5xl text-center mb-5 text-red-600">
-                    Cooked Orders
-                </div>
-                <div className="flex flex-col justify-center items-center">
-                    {cookedOrders.map((o:any)=>{
-                        const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
-                        if(actualOrder.length==0) return null
-                        noCookedOrders=false
-                        return <div className="mb-5" key={o.id}>
-                            <div>ORDER ID = {o.id}</div>
-                            <div>{actualOrder.map(([key,value])=>
-                                <div key={key}>{`${key} x ${value}`}</div>
-                                )}
-                                </div>
-                            </div>
-                    })}
-                    {noCookedOrders?<div className="mb-5">(No orders)</div>:null}
                 </div>
             </div>
     }
