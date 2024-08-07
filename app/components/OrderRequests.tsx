@@ -6,6 +6,7 @@ import useSWR from "swr"
 import { updateOrder } from "../actions/updateOrder"
 import Loader from "./Loader"
 import { useRouter } from "next/navigation"
+import LoadingButton from "./LoadingButton"
 export default function(){
     const session = useSession()
     const router = useRouter()
@@ -40,10 +41,10 @@ export default function(){
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
-                            <div>  <button onClick={async ()=>{
+                            <div>  <LoadingButton onClick={async ()=>{
                                 await updateOrder(o.id,"accepted_by_restaurant")
                                 mutate()
-                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Accept</button>
+                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Accept</LoadingButton>
                                 </div>
                             </div>
                     })}
@@ -61,10 +62,10 @@ export default function(){
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
-                            <div>  <button onClick={async ()=>{
+                            <div>  <LoadingButton onClick={async ()=>{
                                 await updateOrder(o.id,"cooked")
                                 mutate()
-                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Mark as cooked</button>
+                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Mark as cooked</LoadingButton>
                                 </div>
                             </div>
                     })}

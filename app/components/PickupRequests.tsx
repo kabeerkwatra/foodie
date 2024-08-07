@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import useSWR from "swr"
 import { updateOrder } from "../actions/updateOrder"
 import Loader from "./Loader"
+import LoadingButton from "./LoadingButton"
 export default function(){
     const session = useSession()
     if (session.status=="loading") return <Loader/>
@@ -36,10 +37,10 @@ export default function(){
                         return <div className="mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
-                            <div>  <button onClick={ async ()=>{
+                            <div>  <LoadingButton onClick={ async ()=>{
                                 await updateOrder(o.id,"accepted_by_rider")
                                 mutate()
-                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Accept</button>
+                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Accept</LoadingButton>
                                 </div>
                             </div>
                     })}
@@ -56,10 +57,10 @@ export default function(){
                         return <div className="mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
-                            <div>  <button onClick={ async ()=>{
+                            <div>  <LoadingButton onClick={ async ()=>{
                                 await updateOrder(o.id,"delivered")
                                 mutate()
-                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Mark as delivered</button>
+                                }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Mark as delivered</LoadingButton>
                                 </div>
                             </div>
                     })}
