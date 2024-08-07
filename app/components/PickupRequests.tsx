@@ -14,15 +14,14 @@ export default function(){
     const rider = session.data?.user?.rider_name
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     let {data:orders,isLoading,mutate} = useSWR(`/api/getRiderOrders?rider=${rider}`,fetcher,{refreshInterval:15000})
+    if (isLoading) return <Loader/>
     const Orders = orders?.orders
     if (Orders){
-    
         const unacceptedOrders=Orders.filter((order:any)=>order.accepted_by_rider==false)
         const acceptedOrders=Orders.filter((order:any)=>order.accepted_by_rider==true && order.delivered==false)
         const deliveredOrders=Orders.filter((order:any)=>order.delivered==true)
         let noUnacceptedOrders = true
         let noAcceptedOrders = true
-        let noDeliveredOrders = true
         return <div className="flex flex-col font-semibold ">
                 <div className="text-5xl text-center mb-5 text-red-600">
                     Pickup requests

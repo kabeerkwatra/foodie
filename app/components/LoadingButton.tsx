@@ -6,7 +6,7 @@ const LoadingButton = ({ onClick, children }:any) => {
   const handleClick = async () => {
     setIsLoading(true);
     await onClick();
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   return (
