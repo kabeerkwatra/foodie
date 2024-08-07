@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import RiderSignUp from "@/app/components/RiderSignUp";
 /* eslint-disable import/no-anonymous-default-export */
 export default async function (){
-    const session = await getServerSession(NEXT_AUTH)
+    const session : any = await getServerSession(NEXT_AUTH)
     if(session){
         if (session.user!= null){
             redirect("/user/dashboard")   

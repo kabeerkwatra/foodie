@@ -4,6 +4,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { NextRequest } from "next/server";
 
 /* eslint-disable import/no-anonymous-default-export */
 export default function(){

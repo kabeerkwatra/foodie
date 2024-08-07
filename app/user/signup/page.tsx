@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 /* eslint-disable import/no-anonymous-default-export */
 export default async function (){
-    const session = await getServerSession(NEXT_AUTH)
+    const session : any = await getServerSession(NEXT_AUTH)
     if(session){
         if (session.user!=null){
             redirect("/user/dashboard")   

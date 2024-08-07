@@ -1,12 +1,12 @@
 import  CredentialsProvider  from "next-auth/providers/credentials"
 import prisma from "./db"
-export const NEXT_AUTH={
+export const NEXT_AUTH : any ={
     providers:[
         CredentialsProvider({
             name:"Email",
             credentials:{
                 username:{label:"email",type:"text",placeholder:"Email"                    
-                },
+                }, 
                 password:{label:"password",type:"password",placeholder:"Password"}
             },
             // @ts-ignore
@@ -23,9 +23,7 @@ export const NEXT_AUTH={
                     if(user){
                         return user
                     }
-                    else{
-                        return null
-                    }
+                    else throw new Error("Invalid credentials")
 
                 }
                 else if(userType == "rider"){
@@ -38,7 +36,8 @@ export const NEXT_AUTH={
                     if (rider){
                         return rider
                     }
-                    else return null
+                    else throw new Error("Invalid credentials")
+
             }
             else if (userType == "restaurant"){
                 const restaurant = await prisma.restaurant.findFirst({
@@ -50,7 +49,7 @@ export const NEXT_AUTH={
                 if (restaurant){
                     return restaurant
                 }
-                else return null
+                else throw new Error("Invalid credentials")
             }
         }
     })],
@@ -79,6 +78,13 @@ export const NEXT_AUTH={
             }
         }
        }
+    },
+    events:{
+        async signIn(message:any){
+            if(message.error){
+                return `/api/auth/error?error=${message.error}`
+            }
+        }
     },
     secret: process.env.NEXTAUTH_SECRET
 }
