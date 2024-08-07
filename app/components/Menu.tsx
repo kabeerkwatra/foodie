@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import placeOrder from "../actions/placeOrder"
 import { useRouter } from "next/navigation"
 import Loader from "./Loader"
+import SmallLoader from "./SmallLoader"
 export default function Menu({restaurant,pincode,username}:any){
     const session = useSession()
     const router = useRouter()
@@ -12,11 +13,12 @@ export default function Menu({restaurant,pincode,username}:any){
     const {data:menu,isLoading} = useSWR(`/api/menu?restaurant=${restaurant}`,fetcher)
     const [orderItems,setOrderItems] = useState(Object.create({}))
     const [total,setTotal]=useState(0)
+    const [pressed,setPressed] = useState(false)
     // if(isLoading) return <Loader/>
     let menuItems = menu.menu.Menu
     let order={}
     let sum=0
-    let pressed=false
+    // let pressed=false
     useEffect(()=>{
         menuItems.forEach((i:any)=>{
             Object.defineProperty(order,i.item_name,{
@@ -66,10 +68,10 @@ export default function Menu({restaurant,pincode,username}:any){
             {(total!=0)?<div>Total={total}</div>:<div>Add items to place an order</div>}
             {(total!=0 && !pressed)?
             <button onClick={()=>{
-                pressed=true
+                setPressed(true)
                 placeOrder(restaurant,username,pincode,JSON.stringify(orderItems),total)
-            }} className="my-4 text-3xl p-4 bg-red-500 text-white rounded-3xl hover:ring-2 hover:ring-red-500" type="button">Submit order</button>:null}
-            {(pressed)?<Loader/>:null}
+            }} className="my-4 text-3xl p-4 bg-red-500 text-white rounded-3xl hover:ring-2 hover:ring-red-500" type="button">Place Order</button>:null}
+            {(pressed)?<SmallLoader/>:null}
             </div>
     )
 }
