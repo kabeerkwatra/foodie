@@ -2,7 +2,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 "use client"
 import { useSession } from "next-auth/react"
-import Link from "next/link"
 import useSWR from "swr"
 import { updateOrder } from "../actions/updateOrder"
 import Loader from "./Loader"

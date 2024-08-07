@@ -7,7 +7,6 @@ import useSWR from "swr"
 
 /* eslint-disable import/no-anonymous-default-export */
 export default function(){
-    // const order = useSWR()
     const session = useSession()
     const searchParams= useSearchParams()
     const orderid = searchParams.get('orderid')

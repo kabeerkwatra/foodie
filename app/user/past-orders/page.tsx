@@ -2,7 +2,6 @@
 import Loader from "@/app/components/Loader";
 import PastOrders from "@/app/components/PastOrders";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
 export default function Page(){
     const session = useSession()
     

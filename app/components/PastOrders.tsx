@@ -4,8 +4,6 @@
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import useSWR from "swr"
-import { updateOrder } from "../actions/updateOrder"
-import Loader from "./Loader"
 import SmallLoader from "./SmallLoader"
 export default function(){
     const session = useSession()

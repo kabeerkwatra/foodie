@@ -3,7 +3,6 @@ import Loader from "@/app/components/Loader";
 import RiderPastOrders from "@/app/components/RiderPastOrders";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import useSWR from "swr";
 export default function Page(){
     const session = useSession()
     const router = useRouter()

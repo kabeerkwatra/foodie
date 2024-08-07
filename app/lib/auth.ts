@@ -1,8 +1,5 @@
 import  CredentialsProvider  from "next-auth/providers/credentials"
-import { signIn } from "next-auth/react"
 import prisma from "./db"
-import { JWT } from "next-auth/jwt"
-import { Session } from "next-auth"
 export const NEXT_AUTH={
     providers:[
         CredentialsProvider({

@@ -2,12 +2,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 "use client"
 import { useSession } from "next-auth/react"
-import Link from "next/link"
 import useSWR from "swr"
 import { updateOrder } from "../actions/updateOrder"
 import Loader from "./Loader"
+import { useRouter } from "next/navigation"
 export default function(){
     const session = useSession()
+    const router = useRouter()
     if (session.status=="loading") return <Loader/>
     if(session.data && session.data.user && "res_name" in session.data.user){
 
@@ -39,11 +40,9 @@ export default function(){
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
-                            <div>  <button onClick={()=>{
-                                updateOrder(o.id,"accepted_by_restaurant")
-                                setTimeout(()=>{
-                                    mutate()
-                                },500)
+                            <div>  <button onClick={async ()=>{
+                                await updateOrder(o.id,"accepted_by_restaurant")
+                                mutate()
                                 }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Accept</button>
                                 </div>
                             </div>
@@ -62,11 +61,9 @@ export default function(){
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
-                            <div>  <button onClick={()=>{
-                                updateOrder(o.id,"cooked")
-                                setTimeout(()=>{
-                                    mutate()
-                                },500)
+                            <div>  <button onClick={async ()=>{
+                                await updateOrder(o.id,"cooked")
+                                mutate()
                                 }} className="mt-2 p-1 border-2 border-red-600 text-white bg-red-600 text-xs">Mark as cooked</button>
                                 </div>
                             </div>
