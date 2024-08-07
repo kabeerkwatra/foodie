@@ -6,6 +6,7 @@ import Link from "next/link"
 import useSWR from "swr"
 import { updateOrder } from "../actions/updateOrder"
 import Loader from "./Loader"
+import SmallLoader from "./SmallLoader"
 export default function(){
     const session = useSession()
     if(session.data && session.data.user && "username" in session.data.user){
@@ -13,18 +14,19 @@ export default function(){
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     let {data:orders,isLoading,mutate} = useSWR(`/api/getUserOrders?user=${username}`,fetcher,{refreshInterval:15000})
     const Orders = orders?.orders
+    if (isLoading) return <div className="flex justify-center">
+        <SmallLoader/>
+    </div>
     if (Orders){
         return <div className="flex flex-col font-semibold ">
-                <div className="text-5xl text-center mb-5 text-red-600">
-                    My Orders
-                </div>
+                {(isLoading)?<SmallLoader/>:null}
                 <div className="flex flex-col justify-center items-center">
                     {Orders.map((o:any)=>{
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0){
                             return null
                         }
-                        let status = ""
+                        let status = "Processing"
                         if(o.accepted_by_restaurant) status = "Cooking"
                         if(o.cooked) status = "Cooked"
                         if(o.picked_up) status = "On the way"
@@ -42,5 +44,4 @@ export default function(){
     }
     
 }
-if(session.status=="loading") return <Loader/>
 }

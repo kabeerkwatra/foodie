@@ -21,6 +21,7 @@ export default function(){
                 <div className="text-5xl text-center mb-5 text-red-600">
                     Cooked Orders
                 </div>
+                {cookedOrders.length==0?<div className="">(No orders)</div>:null}
                 <div className="flex flex-col justify-center items-center">
                     {cookedOrders.map((o:any)=>{
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)

@@ -8,6 +8,7 @@ import { updateOrder } from "../actions/updateOrder"
 import Loader from "./Loader"
 export default function(){
     const session = useSession()
+    if (session.status=="loading") return <Loader/>
     if(session.data && session.data.user && "res_name" in session.data.user){
 
         const restaurant = session.data?.user?.res_name
