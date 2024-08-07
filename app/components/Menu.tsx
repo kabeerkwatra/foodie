@@ -16,6 +16,7 @@ export default function Menu({restaurant,pincode,username}:any){
     let menuItems = menu.menu.Menu
     let order={}
     let sum=0
+    let pressed=false
     useEffect(()=>{
         menuItems.forEach((i:any)=>{
             Object.defineProperty(order,i.item_name,{
@@ -27,7 +28,7 @@ export default function Menu({restaurant,pincode,username}:any){
         })
         setOrderItems(order)
     },[]) 
-    
+    if (isLoading) return <Loader/> 
     return (
         <div className="flex flex-col justify-center items-center">
             <div className="text-6xl font-semibold mb-4">{restaurant}</div>
@@ -63,10 +64,12 @@ export default function Menu({restaurant,pincode,username}:any){
                     })}</ul>                  
             </div>
             {(total!=0)?<div>Total={total}</div>:<div>Add items to place an order</div>}
-            {(total!=0)?
+            {(total!=0 && !pressed)?
             <button onClick={()=>{
+                pressed=true
                 placeOrder(restaurant,username,pincode,JSON.stringify(orderItems),total)
             }} className="my-4 text-3xl p-4 bg-red-500 text-white rounded-3xl hover:ring-2 hover:ring-red-500" type="button">Submit order</button>:null}
+            {(pressed)?<Loader/>:null}
             </div>
     )
 }
