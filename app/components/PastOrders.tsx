@@ -12,6 +12,7 @@ export default function(){
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     let {data:orders,isLoading,mutate} = useSWR(`/api/getUserOrders?user=${username}`,fetcher,{refreshInterval:15000})
     const Orders = orders?.orders
+    let noOrders = true
     if (isLoading) return <div className="flex justify-center">
         <SmallLoader/>
     </div>
@@ -24,6 +25,7 @@ export default function(){
                         if(actualOrder.length==0){
                             return null
                         }
+                        noOrders = false
                         let status = "Processing"
                         if(o.accepted_by_restaurant) status = "Cooking"
                         if(o.cooked) status = "Cooked"
@@ -37,6 +39,7 @@ export default function(){
                             <div>{`Status = ${status}`}</div> 
                             </div>
                     })}
+                    {noOrders?<div className="mb-5">(No orders)</div>:null}
                  </div>
                 </div>
     }
