@@ -32,12 +32,20 @@ export default function (userType: any) {
                         </div>
                     </div>
                     <div>
-                        <button onClick={async ()=>{ await signIn("credentials",{
+                        <button onClick={async ()=>{ const res = await signIn("credentials",{
                             email:email,
                             password:password,
-                            redirect:false
+                            redirect:false,
+                            callbackUrl:`/${next}/dashboard`
                         },additional)
-                        router.push("/" + next +"/dashboard")
+                        console.log(res)
+                        if(res?.status==200){
+                            router.push("/" + next +"/dashboard")
+                        }
+                        else {
+                            window.alert("Invalid credentials. Try again")
+                        }
+                        
                         }} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
                     </div>
                 </div>
