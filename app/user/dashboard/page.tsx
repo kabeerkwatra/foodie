@@ -6,6 +6,7 @@ import { fetchRestos } from "@/app/actions/fetchRestos"
 import Link from "next/link"
 import useSWR from "swr"
 import Loader from "@/app/components/Loader"
+import SmallLoader from "@/app/components/SmallLoader"
 /* eslint-disable import/no-anonymous-default-export */
 export default function () {
     const clientSession = useSession()
@@ -27,7 +28,7 @@ export default function () {
     else if (clientSession.status == "authenticated" && clientSession.data.user) {
         return <div className="flex flex-col w-screen justify-center items-center">
             <div className="text-5xl text-center font-semibold text-red-600 mb-10">Nearby restaurants</div>
-            {isLoading?<Loader/>:null}
+            {isLoading?<SmallLoader/>:null}
             <ul className="flex flex-col">{restaurants?.map((r) => {
                 return (
                     <Link className="text-3xl hover:text-red-700 hover:text-4xl my-2" href={{
