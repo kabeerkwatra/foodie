@@ -4,7 +4,7 @@ Foodie is an online food delivery service which conatins separate portals for cu
 
 ## URL
 
-[Click here] (https://foodie-gules-five.vercel.app/)
+[Click here](https://foodie-gules-five.vercel.app/)
 
 ## TECHNOLOGIES USED
 
