@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  relationMode = "foreignKeys"
+}
+
+model user {
+  id       Int    @default(autoincrement())
+  username String @id @unique
+  email    String @unique
+  password String
+  pincode  String
+  orders   Order[]
+}
+
+model restaurant {
+  id       Int     @default(autoincrement())
+  res_name String  @id @unique
+  pincode  String
+  cuisine  String
+  password String
+  email    String
+  Menu     MenuItem[]
+  orders   Order[]
+}
+
+model rider {
+  id         Int    @default(autoincrement())
+  rider_name String @id @unique
+  pincode    String
+  password   String
+  email      String
+  orders     Order[]
+}
+
+model MenuItem {
+  id         Int        @id @default(autoincrement())
+  restaurant restaurant @relation(fields: [res_name], references: [res_name])
+  res_name   String    
+  item_name  String
+  price      Float
+}
+
+model Order {
+  id          Int @id @default(autoincrement())
+  res_name    String
+  restaurant  restaurant @relation(fields: [res_name], references: [res_name])
+  username    String
+  user        user   @relation(fields: [username], references: [username])
+  rider_name  String? 
+  rider       rider? @relation(fields: [rider_name], references: [rider_name])
+  items       String
+  accepted_by_restaurant Boolean @default(false)
+  accepted_by_rider Boolean @default(false)
+  cooked      Boolean @default(false)
+  picked_up   Boolean @default(false)
+  delivered   Boolean @default(false)
+  amount Int?
+}
+
