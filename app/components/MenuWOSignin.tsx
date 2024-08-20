@@ -11,7 +11,7 @@ import { useEffect } from "react"
 export default function (){
     const searchParams = useSearchParams()
     const pincode = searchParams.get('pincode')
-    const restaurant = searchParams.get('restaurant')
+    const restaurant= searchParams.get('restaurant')
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     const {data:menu,isLoading} = useSWR(`/api/menu?restaurant=${restaurant}`,fetcher)
     const [orderItems,setOrderItems] = useState(Object.create({}))
@@ -71,7 +71,7 @@ export default function (){
             {(total!=0 && !pressed)?
             <button onClick={()=>{
                 setPressed(true)
-                placeOrder(restaurant,"guest",pincode,JSON.stringify(orderItems),total)
+                placeOrder(String(restaurant),"guest",String(pincode),JSON.stringify(orderItems),total)
             }} className="my-4 text-3xl p-4 bg-red-500 text-white rounded-3xl hover:ring-2 hover:ring-red-500" type="button">Place Order</button>:null}
             {(pressed)?<SmallLoader/>:null}
             </div>

@@ -28,7 +28,7 @@ export default function(){
                 </div>
                 <div>Restaurant : {order.order.res_name}</div>
                 <div className="underline">Items</div>
-                {actualOrder.map(([key,value])=><div key={key}>{key} x {value}</div>)}
+                {actualOrder.map(([key,value])=><div key={key}>{key} x {String(value)}</div>)}
                 <div>Total = {String(order.order.amount)}</div>
             </div>
             <div className="mt-10 text-2xl">Order Activity </div>
