@@ -37,7 +37,7 @@ export default function(){
                             return null
                         } 
                         noUnacceptedOrders=false
-                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
+                        return <div className="text-center mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
@@ -58,7 +58,7 @@ export default function(){
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0) return null
                         noAcceptedOrders=false
-                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
+                        return <div className="text-center mb-5 flex flex-col items-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>

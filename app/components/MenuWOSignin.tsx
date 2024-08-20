@@ -1,24 +1,27 @@
+/* eslint-disable react/display-name */
 "use client"
-import { useSession } from "next-auth/react"
+import { useSearchParams } from "next/navigation"
 import useSWR from "swr"
-import { useEffect, useState } from "react"
-import placeOrder from "../actions/placeOrder"
-import { useRouter } from "next/navigation"
 import Loader from "./Loader"
+import { useState } from "react"
+import placeOrder from "../actions/placeOrder"
 import SmallLoader from "./SmallLoader"
-export default function Menu({restaurant,pincode,username}:any){
-    const session = useSession()
-    const router = useRouter()
+import { useEffect } from "react"
+/* eslint-disable import/no-anonymous-default-export */
+export default function (){
+    const searchParams = useSearchParams()
+    const pincode = searchParams.get('pincode')
+    const restaurant = searchParams.get('restaurant')
     const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
     const {data:menu,isLoading} = useSWR(`/api/menu?restaurant=${restaurant}`,fetcher)
     const [orderItems,setOrderItems] = useState(Object.create({}))
-    const [total,setTotal]=useState(0)
+    const [total,setTotal] = useState(0)
     const [pressed,setPressed] = useState(false)
     // if(isLoading) return <Loader/>
-    let menuItems = menu.menu.Menu
-    let order={}
-    let sum=0
-    // let pressed=false
+    let menuItems=menu.menu.Menu
+    let order = {}
+    let sum = 0
+    console.log(menuItems)
     useEffect(()=>{
         menuItems.forEach((i:any)=>{
             Object.defineProperty(order,i.item_name,{
@@ -30,9 +33,8 @@ export default function Menu({restaurant,pincode,username}:any){
         })
         setOrderItems(order)
     },[]) 
-    if (isLoading) return <Loader/> 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center">
             <div className="text-6xl font-semibold mb-4">{restaurant}</div>
             <div className="text-5xl font-semibold mb-16">Menu</div>
             <div className="flex">
@@ -69,9 +71,10 @@ export default function Menu({restaurant,pincode,username}:any){
             {(total!=0 && !pressed)?
             <button onClick={()=>{
                 setPressed(true)
-                placeOrder(restaurant,username,pincode,JSON.stringify(orderItems),total)
+                placeOrder(restaurant,"guest",pincode,JSON.stringify(orderItems),total)
             }} className="my-4 text-3xl p-4 bg-red-500 text-white rounded-3xl hover:ring-2 hover:ring-red-500" type="button">Place Order</button>:null}
             {(pressed)?<SmallLoader/>:null}
             </div>
     )
+
 }

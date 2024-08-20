@@ -11,7 +11,7 @@ export default async function(restaurant:string,username:string,pincode:string,o
     })
     const randomNumber = Math.floor((riders.length-1)*Math.random())
     const randomRider = riders[randomNumber]
-    if(randomRider){
+    if(randomRider && username !="guest"){
         const newOrder = await prisma.order.create({
             data:{
                 items:order,
@@ -34,6 +34,26 @@ export default async function(restaurant:string,username:string,pincode:string,o
 
             }
         })
-        redirect("/user/order?orderid="+String(newOrder.id))
+        redirect("/order?orderid="+String(newOrder.id))
+    }
+    if(randomRider && username =="guest"){
+        const newOrder = await prisma.order.create({
+            data:{
+                items:order,
+                amount:total,
+                rider:{
+                    connect:{
+                        rider_name:randomRider.rider_name
+                    }
+                },
+                restaurant:{
+                    connect:{
+                        res_name:restaurant
+                    }
+                }
+
+            }
+        })
+        redirect("/order?orderid="+String(newOrder.id))
     }
 }

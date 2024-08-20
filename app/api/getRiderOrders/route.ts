@@ -5,6 +5,7 @@ export async function GET(req:NextRequest){
     const rider = req.nextUrl.searchParams.get('rider')
     const orders = await prisma.order.findMany({
         where:{
+            // @ts-ignore
             rider_name:rider
         }
     })

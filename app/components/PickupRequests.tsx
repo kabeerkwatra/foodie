@@ -35,7 +35,7 @@ export default function(){
                             return null
                         } 
                         noUnacceptedOrders=false
-                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center text-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>  <LoadingButton onClick={ async ()=>{
@@ -55,7 +55,7 @@ export default function(){
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0) {return null}
                         noAcceptedOrders=false
-                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center text-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>  <LoadingButton onClick={ async ()=>{
@@ -76,7 +76,7 @@ export default function(){
                         const actualOrder=Object.entries(JSON.parse(o.items)).filter(([key,value])=>value!=0)
                         if(actualOrder.length==0) {return null}
                         noPickedUpOrders=false
-                        return <div className="mb-5 flex flex-col items-center" key={o.id}>
+                        return <div className="mb-5 flex flex-col items-center text-center" key={o.id}>
                             <div>ORDER ID = {o.id}</div>
                             <div>{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>  <LoadingButton onClick={ async ()=>{

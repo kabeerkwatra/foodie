@@ -55,10 +55,10 @@ model Order {
   id          Int @id @default(autoincrement())
   res_name    String
   restaurant  restaurant @relation(fields: [res_name], references: [res_name])
-  username    String
-  user        user   @relation(fields: [username], references: [username])
-  rider_name  String? 
-  rider       rider? @relation(fields: [rider_name], references: [rider_name])
+  username    String?
+  user        user?   @relation(fields: [username], references: [username])
+  rider_name  String 
+  rider       rider @relation(fields: [rider_name], references: [rider_name])
   items       String
   accepted_by_restaurant Boolean @default(false)
   accepted_by_rider Boolean @default(false)

@@ -33,7 +33,7 @@ export default function(){
                         if(o.delivered) status = "Delivered"
 
                         return <div className=" flex flex-col items-center mb-5 border-b p-2" key={o.id}>
-                            <Link className="hover:underline" href={`/user/order?orderid=${String(o.id)}`}>ORDER ID = {o.id}</Link>
+                            <Link className="hover:underline" href={`/order?orderid=${String(o.id)}`}>ORDER ID = {o.id}</Link>
                             <div className="flex flex-col items-center">{actualOrder.map(([key,value])=><div key={key}>{`${key} x ${value}`}</div>)}</div>
                             <div>{`Total = ${o.amount}`}</div>
                             <div>{`Status = ${status}`}</div> 
