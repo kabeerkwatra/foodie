@@ -51,6 +51,8 @@ export default function RestaurantAuthPage() {
                         </div>
                     </div>
                 </div>
+                <div className="text-center">For testing purposes,please use these credentials.<br></br> Email - mcd@mcd | Password - pass</div>
+
             </div>
         </div>
     )

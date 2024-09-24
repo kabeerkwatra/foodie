@@ -50,7 +50,9 @@ export default function CustomerAuthPage() {
                             </Link>
                         </div>
                     </div>
+
                 </div>
+                    <div className="text-center">For testing purposes,please use these credentials.<br></br> Email - new@new | Password - pass</div>
             </div>
         </div>
     )

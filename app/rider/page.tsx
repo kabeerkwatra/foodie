@@ -51,6 +51,7 @@ export default function RiderAuthPage() {
                         </div>
                     </div>
                 </div>
+            <div className="text-center">For testing purposes,please use these credentials.<br></br> Email - neeraj@rider | Password - pass</div>
             </div>
         </div>
     )
