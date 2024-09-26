@@ -39,7 +39,7 @@ export default function UserDashboard() {
                         Discover great food options in your area
                     </p>
                     {isLoading ? (
-                        <Loader />
+                        <div className="flex justify-center"><Loader /></div>
                     ) : restaurants && restaurants.length > 0 ? (
                         <ul className="bg-white shadow-sm rounded-lg overflow-hidden divide-y divide-gray-200">
                             {restaurants.map((r) => (
