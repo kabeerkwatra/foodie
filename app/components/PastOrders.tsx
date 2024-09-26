@@ -1,5 +1,3 @@
-/* eslint-disable react/display-name */
-/* eslint-disable import/no-anonymous-default-export */
 "use client"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
@@ -7,18 +5,36 @@ import useSWR from "swr"
 import SmallLoader from "./SmallLoader"
 import { Clock, CheckCircle, Truck, Coffee, Store } from "lucide-react"
 
-export default function() {
+interface Order {
+  id: string;
+  items: string;
+  amount: number;
+  res_name: string;
+  accepted_by_restaurant: boolean;
+  cooked: boolean;
+  picked_up: boolean;
+  delivered: boolean;
+}
+
+interface OrdersResponse {
+  orders: Order[];
+}
+
+const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
+
+export default function PastOrders() {
     const session = useSession()
+    
     if(session.data && session.data.user && "username" in session.data.user){
-        const username = session.data?.user?.username
-        const fetcher = (url: string, init?: RequestInit) => fetch(url, init).then(res => res.json())
-        let {data:orders,isLoading,mutate} = useSWR(`/api/getUserOrders?user=${username}`,fetcher,{refreshInterval:15000})
-        const Orders = orders?.orders
-        let noOrders = true
-        if (isLoading) return <div className="flex justify-center">
-            <SmallLoader/>
-        </div>
-        if (Orders){
+        const username = session.data.user.username
+        const { data: ordersResponse, isLoading, mutate } = useSWR<OrdersResponse>(`/api/getUserOrders?user=${username}`, fetcher, { refreshInterval: 15000 })
+        
+        if (isLoading) return <div className="flex justify-center"><SmallLoader /></div>
+        
+        if (ordersResponse) {
+            const sortedOrders = [...ordersResponse.orders].sort((a, b) => parseInt(b.id) - parseInt(a.id))
+            const noOrders = sortedOrders.length === 0
+
             return (
                 <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div className="px-4 py-5 sm:px-6">
@@ -26,12 +42,10 @@ export default function() {
                     </div>
                     {isLoading && <SmallLoader />}
                     <ul className="divide-y divide-gray-200">
-                        {Orders.slice().reverse().map((o:any) => {
-                            const actualOrder = Object.entries(JSON.parse(o.items)).filter(([key,value]) => value != 0)
-                            if(actualOrder.length == 0){
-                                return null
-                            }
-                            noOrders = false
+                        {sortedOrders.map((o: Order) => {
+                            const actualOrder = Object.entries(JSON.parse(o.items)).filter(([, value]) => value !== 0)
+                            if(actualOrder.length === 0) return null
+
                             let status = "Processing"
                             let StatusIcon = Clock
 
@@ -72,7 +86,7 @@ export default function() {
                                                 {o.res_name}
                                             </p>
                                             <p className="flex items-center text-sm text-gray-500">
-                                                {actualOrder.map(([key,value]) => `${key} x ${value}`).join(', ')}
+                                                {actualOrder.map(([key, value]) => `${key} x ${value}`).join(', ')}
                                             </p>
                                         </div>
                                         <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
